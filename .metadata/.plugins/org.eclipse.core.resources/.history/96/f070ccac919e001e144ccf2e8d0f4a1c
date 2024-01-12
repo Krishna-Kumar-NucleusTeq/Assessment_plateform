@@ -1,0 +1,5 @@
+package com.krishna.quiz.service;
+
+public class QuizService {
+
+}

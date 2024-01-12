@@ -1,0 +1,5 @@
+package com.krishna.auth.repository;
+
+public interface UserCrediantialRepository {
+
+}

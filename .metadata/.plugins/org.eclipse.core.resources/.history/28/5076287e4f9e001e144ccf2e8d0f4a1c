@@ -1,0 +1,5 @@
+package com.krishna.category.repository;
+
+public interface CategoryRepository {
+
+}

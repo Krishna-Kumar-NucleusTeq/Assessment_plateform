@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.krishna.reg.ValidationMessage"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.utility.ErrorResponse"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.repository.RegistrationRepository"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.entity.Registration"/>
+    <fullyQualifiedTypeName name="org.apache.logging.log4j.message.Message"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.exception.DuplicateResourceException"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.exception.LoginFailedException"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.exception.ResourceNotFoundException"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.utility.Message"/>
+    <fullyQualifiedTypeName name="org.springframework.security.crypto.password.PasswordEncoder"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.service.RegistrationService"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.utility.SuccessResponse"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.dto.RegistrationDto"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.utility.RegistrationLoggerMessage"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.dto.LoginRequestDto"/>
+</qualifiedTypeNameHistroy>

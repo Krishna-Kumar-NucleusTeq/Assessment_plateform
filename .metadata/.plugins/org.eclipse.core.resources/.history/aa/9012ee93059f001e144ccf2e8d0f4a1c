@@ -1,0 +1,5 @@
+package com.krishna.report.utility;
+
+public class ErrorResponse {
+
+}

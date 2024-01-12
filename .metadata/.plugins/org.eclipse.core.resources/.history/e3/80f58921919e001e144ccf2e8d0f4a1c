@@ -1,0 +1,5 @@
+package com.krishna.quiz.repository;
+
+public interface QuizRepository {
+
+}

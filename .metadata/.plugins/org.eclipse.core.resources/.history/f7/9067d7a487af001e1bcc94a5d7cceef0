@@ -1,0 +1,5 @@
+package com.krishna.report.externalService;
+
+public interface QuizService {
+
+}

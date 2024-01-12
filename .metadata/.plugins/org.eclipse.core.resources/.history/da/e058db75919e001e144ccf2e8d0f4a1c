@@ -1,0 +1,5 @@
+package com.krishna.quiz.utility;
+
+public class SuccessResponse {
+
+}

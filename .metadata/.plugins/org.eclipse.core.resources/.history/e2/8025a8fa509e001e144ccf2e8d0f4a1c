@@ -1,0 +1,5 @@
+package com.krishna.category.exception;
+
+public class DuplicateResourceException {
+
+}

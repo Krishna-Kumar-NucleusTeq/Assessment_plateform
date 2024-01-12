@@ -1,0 +1,5 @@
+package com.krishna.report.errorHandler;
+
+public class CustomErrorDecoder {
+
+}

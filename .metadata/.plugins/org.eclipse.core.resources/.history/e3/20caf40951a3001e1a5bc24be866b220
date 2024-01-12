@@ -1,0 +1,17 @@
+package com.krishna.quiz.externalService;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.krishna.quiz.dto.CategoryDto;
+
+
+@FeignClient(name="category-service")
+public interface CategoryService {
+
+	@GetMapping("/category/{id}")
+    ResponseEntity<CategoryDto> getCategoryById(@PathVariable int id);
+	
+}

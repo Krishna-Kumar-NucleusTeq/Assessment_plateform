@@ -1,0 +1,5 @@
+package com.krishna.category.utility;
+
+public class SuccessResponse {
+
+}

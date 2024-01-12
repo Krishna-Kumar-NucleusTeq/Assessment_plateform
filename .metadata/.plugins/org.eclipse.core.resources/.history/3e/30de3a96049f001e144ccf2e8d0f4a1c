@@ -1,0 +1,5 @@
+package com.krishna.report.entity;
+
+public class Report {
+
+}
