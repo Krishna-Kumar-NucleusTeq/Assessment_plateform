@@ -6,20 +6,28 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.krishna.auth.entity.UserCrediential;
-import com.krishna.auth.repository.UserCrediantialRepository;
-
-import java.util.Optional;
+import com.krishna.auth.dto.RegistrationDto;
+import com.krishna.auth.externalServices.UserService;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserCrediantialRepository repository;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserCrediential> credential = repository.findByEmailId(username);
-        return credential.map(CustomUserDetails::new).orElseThrow(() -> new UsernameNotFoundException("user not found with name :" + username));
+    	
+    	
+    	System.out.println("invoke the get user by loaduserby userName.");
+        RegistrationDto credential = userService.getUserByEmail(username);
+        
+        if(credential == null) {
+        	 throw new UsernameNotFoundException("user not found with name :" + username);
+        }
+        System.out.println("Uesr Email id is :"+credential.getEmail());
+        
+        CustomUserDetails customUserDetails= new CustomUserDetails(credential);
+        return customUserDetails;
     }
 }

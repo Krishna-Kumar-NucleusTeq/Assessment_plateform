@@ -1,5 +1,0 @@
-package com.krishna.quiz.configuration;
-
-public class RestTemplateConfig {
-
-}

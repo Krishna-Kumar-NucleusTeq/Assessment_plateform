@@ -13,27 +13,45 @@ spring:
           uri: lb://REGISTRATION-SERVICE
           predicates:
             - Path=/users/**
+          filters:
+            - AuthenticationFilter
             
         - id: CATEGORY-SERVICE
           uri: lb://CATEGORY-SERVICE
           predicates:
             - Path=/category/**
+          filters:
+            - AuthenticationFilter
+            
             
         - id: QUIZ-SERVICE
           uri: lb://QUIZ-SERVICE
           predicates:
             - Path=/quizzes/**
-        
+          filters:
+            - AuthenticationFilter
+            
+            
         - id: QUESTION-SERVICE
           uri: lb://QUESTION-SERVICE
           predicates:
              - Path=/api/questions/**
-           
+          filters:
+            - AuthenticationFilter
+          
             
         - id: REPORT-SERVICE
           uri: lb://REPORT-SERVICE
           predicates:
             - Path=/api/reports/**
+          filters:
+            - AuthenticationFilter
+          
+            
+        - id: AUTH-SERVICE
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
 eureka:
   instance:
     prefer-ip-address: true

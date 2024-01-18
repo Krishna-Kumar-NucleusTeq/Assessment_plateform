@@ -1,5 +1,0 @@
-package com.krishna.question.exception;
-
-public class GlobalExceptionHandler {
-
-}

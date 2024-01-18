@@ -1,5 +1,0 @@
-package com.krishna.quiz.externalService;
-
-public interface CategoryService {
-
-}

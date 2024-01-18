@@ -11,12 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.krishna.reg.dto.AuthRequest;
 import com.krishna.reg.dto.LoginRequestDto;
 import com.krishna.reg.dto.RegistrationDto;
 import com.krishna.reg.entity.Registration;
 import com.krishna.reg.exception.DuplicateResourceException;
 import com.krishna.reg.exception.LoginFailedException;
 import com.krishna.reg.exception.ResourceNotFoundException;
+import com.krishna.reg.externalService.AuthService;
 import com.krishna.reg.repository.RegistrationRepository;
 import com.krishna.reg.service.RegistrationService;
 import com.krishna.reg.utility.Message;
@@ -44,6 +46,9 @@ public class RegistrationServiceImpl implements RegistrationService {
      */
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private AuthService authService;
 
     /**
      * Creating a instance of Logger Class.
@@ -63,7 +68,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         registration.setFirstName(registrationDto.getFirstName());
         registration.setLastName(registrationDto.getLastName());
         registration.setMobileNumber(registrationDto.getMobileNumber());
-        registration.setUserRole("user");
+//        registration.setUserRole("user");
+        registration.setUserRole("ROLE_USER");
         registration.setEmail(registrationDto.getEmail());
         registration.setPassword(registrationDto.getPassword());
         return registration;
@@ -83,7 +89,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         registrationDto.setMobileNumber(registration.getMobileNumber());
         registrationDto.setUserRole(registration.getUserRole());
         registrationDto.setEmail(registration.getEmail());
-        registrationDto.setPassword(null);
+        registrationDto.setPassword(registration.getPassword());
         return registrationDto;
     }
 
@@ -162,11 +168,16 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         boolean isRightPassword = passwordEncoder.matches(password,
                 encodedPassword);
-
+        
         if (isRightPassword) {
+            
+        	AuthRequest authRequest = new AuthRequest(foundRegistration.getEmail(), password);
+            String authToken = authService.getToken(authRequest);
+            
             response.put("message", Message.LOGIN_SUCCESSFULLY);
             response.put("email", foundRegistration.getEmail());
             response.put("role", foundRegistration.getUserRole());
+            response.put("token", authToken);
         } else {
             LOGGER.error(Message.LOGIN_FAILED);
             throw new LoginFailedException(

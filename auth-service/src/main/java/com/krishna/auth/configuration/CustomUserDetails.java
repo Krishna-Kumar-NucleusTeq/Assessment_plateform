@@ -1,35 +1,44 @@
 package com.krishna.auth.configuration;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.krishna.auth.entity.UserCrediential;
+import com.krishna.auth.dto.RegistrationDto;
 
 public class CustomUserDetails implements UserDetails {
+	
+		
+	private RegistrationDto user;
+	
+    
+    public CustomUserDetails(RegistrationDto credential) {
+	super();
+	this.user = credential;
+}
 
-    private String username;
-    private String password;
-
-    public CustomUserDetails(UserCrediential userCredential) {
-        this.username = userCredential.getEmailId();
-        this.password = userCredential.getPassword();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    	
+    	System.out.println("reached in custmor details class.");
+    	SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getUserRole());
+        return Arrays.asList(simpleGrantedAuthority);
     }
+    
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+    	System.out.println("called the getuser name method.");
+        return user.getEmail();
     }
 
     @Override
@@ -52,3 +61,4 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 }
+

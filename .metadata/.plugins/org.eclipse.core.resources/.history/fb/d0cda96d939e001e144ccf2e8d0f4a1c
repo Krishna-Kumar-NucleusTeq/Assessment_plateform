@@ -1,5 +1,0 @@
-package com.krishna.quiz.exception;
-
-public class ResourceNotFoundException {
-
-}

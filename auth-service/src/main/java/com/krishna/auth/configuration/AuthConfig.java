@@ -5,7 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
 public class AuthConfig {
 
     @Bean
@@ -25,11 +29,23 @@ public class AuthConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/auth/register", "/auth/token", "/auth/validate").permitAll()
-                .and()
-                .build();
+    
+    	System.out.println("reached in auth configuration.");
+    	http.formLogin(Customizer.withDefaults());
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+    	http.authorizeHttpRequests()
+	  	  .requestMatchers("/auth/token", "/auth/validate").permitAll()
+	  	  .requestMatchers("/auth/admin/**").hasRole("ADMIN")
+	  	  .requestMatchers("/auth/user/**").hasRole("USER")
+	  	  .anyRequest().authenticated()
+	  	  .and()
+	  	  .formLogin();
+    	
+    	http.httpBasic();
+    
+    return  http.build();
+    
     }
 
     @Bean
@@ -40,7 +56,7 @@ public class AuthConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setUserDetailsService(this.userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -48,5 +64,9 @@ public class AuthConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+    
+    public void configure(AuthenticationManagerBuilder auth) {
+    	auth.authenticationProvider(authenticationProvider());
     }
 }

@@ -1,5 +1,0 @@
-package com.krishna.report.exception;
-
-public class GlobalExceptionHandler {
-
-}
