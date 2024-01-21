@@ -30,14 +30,11 @@ public class AuthConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     
-    	System.out.println("reached in auth configuration.");
     	http.formLogin(Customizer.withDefaults());
         http.csrf().disable();
         http.headers().frameOptions().disable();
     	http.authorizeHttpRequests()
 	  	  .requestMatchers("/auth/token", "/auth/validate").permitAll()
-	  	  .requestMatchers("/auth/admin/**").hasRole("ADMIN")
-	  	  .requestMatchers("/auth/user/**").hasRole("USER")
 	  	  .anyRequest().authenticated()
 	  	  .and()
 	  	  .formLogin();

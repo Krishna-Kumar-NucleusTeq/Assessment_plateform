@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
-    <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.configuration.EnableWebSecurity"/>
-    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
-    <fullyQualifiedTypeName name="org.springframework.security.web.SecurityFilterChain"/>
-    <fullyQualifiedTypeName name="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetailsService"/>
-    <fullyQualifiedTypeName name="com.krishna.quiz.exception.ResourceNotFoundException"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ExceptionHandler"/>
-    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
-    <fullyQualifiedTypeName name="org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler"/>
-    <fullyQualifiedTypeName name="org.springframework.web.client.HttpServerErrorException"/>
-    <fullyQualifiedTypeName name="java.io.IOException"/>
-    <fullyQualifiedTypeName name="ch.qos.logback.classic.pattern.Util"/>
     <fullyQualifiedTypeName name="feign.Util"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.JsonNode"/>
@@ -27,7 +14,6 @@
     <fullyQualifiedTypeName name="org.springframework.security.authentication.UsernamePasswordAuthenticationToken"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.krishna.auth.service.UserCrediantialService"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
@@ -43,7 +29,6 @@
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.authority.SimpleGrantedAuthority"/>
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity"/>
-    <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.builders.HttpSecurity"/>
     <fullyQualifiedTypeName name="org.springframework.security.authentication.AuthenticationProvider"/>
     <fullyQualifiedTypeName name="org.springframework.security.authentication.dao.DaoAuthenticationProvider"/>
     <fullyQualifiedTypeName name="org.springframework.security.authentication.AuthenticationManager"/>
@@ -51,13 +36,28 @@
     <fullyQualifiedTypeName name="jakarta.annotation.security.RolesAllowed"/>
     <fullyQualifiedTypeName name="com.krishna.auth.entity.UserCrediential"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="javax.management.relation.Role"/>
-    <fullyQualifiedTypeName name="org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity"/>
-    <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
     <fullyQualifiedTypeName name="org.apache.tomcat.util.net.openssl.ciphers.Authentication"/>
     <fullyQualifiedTypeName name="org.springframework.security.config.Customizer"/>
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.SecurityConfigurerAdapter"/>
     <fullyQualifiedTypeName name="org.springframework.security.web.DefaultSecurityFilterChain"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="com.krishna.gateway.util.JwtUtil"/>
+    <fullyQualifiedTypeName name="org.springframework.cloud.openfeign.FeignClient"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.exception.ResourceNotFoundException"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.errorHandler.CustomErrorDecoder"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.externalService.AuthService"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.dto.AuthRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
+    <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.configuration.EnableWebSecurity"/>
+    <fullyQualifiedTypeName name="org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetailsService"/>
+    <fullyQualifiedTypeName name="org.springframework.security.web.SecurityFilterChain"/>
+    <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.builders.HttpSecurity"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.repository.RegistrationRepository"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.dto.RegistrationDto"/>
+    <fullyQualifiedTypeName name="com.krishna.reg.service.RegistrationService"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.Claims"/>
 </qualifiedTypeNameHistroy>

@@ -5,47 +5,62 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+
+import com.krishna.gateway.exception.ResourceNotFoundException;
+import com.krishna.gateway.exception.UnauthorizedAccessException;
 import com.krishna.gateway.util.JwtUtil;
 
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
-    @Autowired
-    private RouteValidator validator;
+	@Autowired
+	private RouteValidator validator;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+	@Autowired
+	private JwtUtil jwtUtil;
 
-    public AuthenticationFilter() {
-        super(Config.class);
-    }
+	public AuthenticationFilter() {
+		super(Config.class);
+	}
 
-    @Override
-    public GatewayFilter apply(Config config) {
-        return ((exchange, chain) -> {
-            if (validator.isSecured.test(exchange.getRequest())) {
-                //header contains token or not
-                if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                    throw new RuntimeException("missing authorization header");
-                }
+	@Override
+	public GatewayFilter apply(Config config) {
+		return ((exchange, chain) -> {
+			if (validator.isSecured.test(exchange.getRequest())) {
+				if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+					throw new ResourceNotFoundException("Access denied: Missing authorization header");
+				}
 
-                String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                    authHeader = authHeader.substring(7);
-                }
-                try {
-                    jwtUtil.validateToken(authHeader);
+				String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+				if (authHeader != null && authHeader.startsWith("Bearer ")) {
+					authHeader = authHeader.substring(7);
+				}
 
-                } catch (Exception e) {
-                    System.out.println("invalid access...!");
-                    throw new RuntimeException("un authorized access to application");
-                }
-            }
-            return chain.filter(exchange);
-        });
-    }
+				try {
+					jwtUtil.validateToken(authHeader);
 
-    public static class Config {
+				} catch (Exception e) {
+					throw new ResourceNotFoundException("Access denied: Invalid or expired token");
+				}
 
-    }
+				String userRole = jwtUtil.extractUserRole(authHeader);
+				String path = exchange.getRequest().getPath().toString();
+
+				if (path.contains("/update/user/") || path.contains("/user/delete/")
+						|| path.contains("/users/get/all")) {
+
+					if (!"ROLE_ADMIN".equals(userRole)) {
+						throw new UnauthorizedAccessException("Access denied: Insufficient privileges for this URL");
+					} else {
+						return chain.filter(exchange);
+					}
+				}
+			}
+			return chain.filter(exchange);
+		});
+	}
+
+	public static class Config {
+
+	}
 }

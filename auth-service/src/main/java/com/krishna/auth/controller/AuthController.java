@@ -46,21 +46,4 @@ public class AuthController {
         return "Token is valid";
     }
     
-    @GetMapping("/admin/test")
-    public String getAuthenticatedAdmin(){
-    	System.out.println("reached in admin Test contoller method.");
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	System.out.println("Authorities: " + authentication.getAuthorities());
-    	return "Current Admin role is : "+authentication.getAuthorities();
-
-    }
-    
-    @GetMapping("/user/test")
-    public String getAuthenticatedUser(){
-    	System.out.println("reached in admin Test contoller method.");
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	System.out.println("Authorities: " + authentication.getAuthorities());
-    	return "Current User role is : "+authentication.getAuthorities();
-
-    }
 }

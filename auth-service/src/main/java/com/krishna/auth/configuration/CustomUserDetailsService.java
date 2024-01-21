@@ -18,15 +18,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	
-    	
-    	System.out.println("invoke the get user by loaduserby userName.");
         RegistrationDto credential = userService.getUserByEmail(username);
         
         if(credential == null) {
         	 throw new UsernameNotFoundException("user not found with name :" + username);
         }
-        System.out.println("Uesr Email id is :"+credential.getEmail());
-        
         CustomUserDetails customUserDetails= new CustomUserDetails(credential);
         return customUserDetails;
     }

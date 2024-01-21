@@ -1,11 +1,14 @@
 package com.krishna.gateway.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.util.List;
 
 @Component
 public class JwtUtil {
@@ -16,9 +19,21 @@ public class JwtUtil {
 		Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token);
 	}
 
+
+	public String extractUserRole(String token) {
+        Claims claims = Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+        return (String) claims.get("role");
+    }
+		
+	
+    public String extractUsername(String token) {
+        Claims claims = Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+        return claims.getSubject();
+    }
+	
 	private Key getSignKey() {
 		byte[] keyBytes = Decoders.BASE64.decode(SECRET);
 		return Keys.hmacShaKeyFor(keyBytes);
-	}
+	}	
 
 }

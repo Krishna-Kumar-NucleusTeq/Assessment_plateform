@@ -1,5 +1,0 @@
-package com.krishna.auth.dto;
-
-public class AuthRequest {
-
-}

@@ -23,8 +23,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-    	
-    	System.out.println("reached in custmor details class.");
+
     	SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getUserRole());
         return Arrays.asList(simpleGrantedAuthority);
     }
@@ -37,7 +36,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-    	System.out.println("called the getuser name method.");
         return user.getEmail();
     }
 
@@ -61,4 +59,3 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 }
-

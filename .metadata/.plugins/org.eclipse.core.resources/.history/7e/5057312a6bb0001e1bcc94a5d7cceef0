@@ -1,5 +1,0 @@
-package com.krishna.auth.configuration;
-
-public class CustomUserDetails {
-
-}
