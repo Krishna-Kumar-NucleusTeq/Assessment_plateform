@@ -1,0 +1,18 @@
+package com.krishna.reg.externalService;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.krishna.reg.dto.;
+
+@FeignClient(name = "AUTH-SERVICE",configuration = CustomErrorDecoder.class)
+public interface AuthService {
+
+//	@GetMapping("AUTH/{quizId}")
+//	QuizDto getQuizById(@PathVariable final Integer quizId);
+	@PostMapping("auth/token")
+	String getToken(@RequestBody AuthRequest authRequest) ;
+}

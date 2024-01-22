@@ -1,0 +1,40 @@
+package com.krishna.gateway.filter;
+
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Component;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
+import java.util.function.Predicate;
+
+@Component
+public class RouteValidator {
+
+    public static final List<String> openApiEndpoints = List.of(
+            "/users/save",
+            "/users/login",
+            "/auth/token",
+            "/auth/validate",
+            "/eureka"
+    );
+
+//    public Predicate<ServerHttpRequest> isSecured =
+//            request -> openApiEndpoints
+//                    .stream()
+//                    .noneMatch(uri -> request.getURI().getPath().contains(uri));
+
+    
+    public Predicate<ServerHttpRequest> isSecured =
+            request -> {
+                String path = request.getURI().getPath();
+                boolean isAdminPath = path.startsWith("/category/delete/") || path.startsWith("/users/get/all");
+
+                return openApiEndpoints.stream().noneMatch(uri -> path.contains(uri))
+                        && (isAdminPath || isAdminRole());
+            };
+
+    private boolean isAdminRole() {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(authority -> "admin".equals(authority.getAuthority()));
+    }
+}

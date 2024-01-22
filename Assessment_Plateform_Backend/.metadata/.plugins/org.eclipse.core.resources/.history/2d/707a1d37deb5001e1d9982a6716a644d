@@ -1,0 +1,5 @@
+package com.krishna.reg.externalService;
+
+public class AuthService {
+
+}

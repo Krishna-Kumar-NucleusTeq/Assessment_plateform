@@ -1,0 +1,5 @@
+package com.krishna.gateway.exception;
+
+public class UnauthorizedAccessException {
+
+}

@@ -1,0 +1,19 @@
+package com.krishna.gateway.externalService;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import com.krishna.gateway.ErrorHandlaer.CustomErrorDecoder;
+import com.krishna.gateway.dto.RegistrationDto;
+
+
+public class UserService {
+
+	@FeignClient(name = "REGISTRATION-SERVICE",configuration = CustomErrorDecoder.class)
+	public interface CategoryService {
+
+		@GetMapping("/users/get/{id}")
+		RegistrationDto getUserById(@PathVariable("id") int id);
+		
+	}
+}

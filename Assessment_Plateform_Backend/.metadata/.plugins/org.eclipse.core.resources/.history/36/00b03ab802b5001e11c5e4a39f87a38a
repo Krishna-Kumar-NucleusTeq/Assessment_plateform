@@ -1,0 +1,5 @@
+package com.krishna.auth.exception;
+
+public class ResourceNotFoundException {
+
+}

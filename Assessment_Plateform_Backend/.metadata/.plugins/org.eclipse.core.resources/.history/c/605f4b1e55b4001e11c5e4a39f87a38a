@@ -1,0 +1,5 @@
+package com.krishna.gateway.credential;
+
+public class UserCredential {
+
+}

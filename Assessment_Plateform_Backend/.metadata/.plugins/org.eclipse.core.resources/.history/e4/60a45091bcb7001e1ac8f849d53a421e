@@ -1,0 +1,5 @@
+package com.krishna.gateway.util;
+
+public class RegistrationDto {
+
+}

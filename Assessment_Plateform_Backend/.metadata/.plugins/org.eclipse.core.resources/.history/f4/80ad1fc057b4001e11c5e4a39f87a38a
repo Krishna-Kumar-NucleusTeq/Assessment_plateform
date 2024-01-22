@@ -1,0 +1,5 @@
+package com.krishna.gateway.externalService;
+
+public class UserService {
+
+}

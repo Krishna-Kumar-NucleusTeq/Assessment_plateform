@@ -1,0 +1,57 @@
+package com.krishna.gateway.util;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParserBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
+
+import java.security.Key;
+import java.util.List;
+
+@Component
+public class JwtUtil {
+
+	public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+
+	public void validateToken(final String token) {
+		Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+	}
+
+
+//	public String extractUserRole(String token) {
+//        Claims claims = Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+//        
+//        System.out.println("Retrived User Role is :"+(String) claims.get("role"));
+//        return (String) claims.get("role");
+//    }
+	
+	public String extractUserRole(String token) {
+	    Claims claims = Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+	    
+	    Object roleClaim = claims.get("role");
+	    
+	    if (roleClaim != null && roleClaim instanceof String) {
+	        System.out.println("Retrieved User Role is: " + (String) roleClaim);
+	        return (String) roleClaim;
+	    } else {
+	        // Handle the case where the "role" claim is not a string or is null
+	        System.out.println("Unable to retrieve User Role from the token");
+	        return null; // or throw an exception, depending on your requirements
+	    }
+	}
+
+	
+	
+    public String extractUsername(String token) {
+        Claims claims = Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+        return claims.getSubject();
+    }
+	
+	private Key getSignKey() {
+		byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+		return Keys.hmacShaKeyFor(keyBytes);
+	}	
+
+}
