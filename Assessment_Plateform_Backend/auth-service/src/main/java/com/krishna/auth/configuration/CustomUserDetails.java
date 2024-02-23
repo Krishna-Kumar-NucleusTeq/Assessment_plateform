@@ -12,6 +12,10 @@ import com.krishna.auth.dto.RegistrationDto;
 public class CustomUserDetails implements UserDetails {
 	
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private RegistrationDto user;
 	
     

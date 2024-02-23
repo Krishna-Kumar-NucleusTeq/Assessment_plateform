@@ -5,7 +5,6 @@ spring:
   application:
     name: API-GATEWAY
 
-
   cloud:
     gateway:
       routes:
@@ -15,43 +14,58 @@ spring:
             - Path=/users/**
           filters:
             - AuthenticationFilter
-            
+
         - id: CATEGORY-SERVICE
           uri: lb://CATEGORY-SERVICE
           predicates:
             - Path=/category/**
           filters:
             - AuthenticationFilter
-            
-            
+
         - id: QUIZ-SERVICE
           uri: lb://QUIZ-SERVICE
           predicates:
             - Path=/quizzes/**
           filters:
             - AuthenticationFilter
-            
-            
+
         - id: QUESTION-SERVICE
           uri: lb://QUESTION-SERVICE
           predicates:
-             - Path=/api/questions/**
+            - Path=/api/questions/**
           filters:
             - AuthenticationFilter
-          
-            
+
         - id: REPORT-SERVICE
           uri: lb://REPORT-SERVICE
           predicates:
             - Path=/api/reports/**
           filters:
             - AuthenticationFilter
-          
-            
+
         - id: AUTH-SERVICE
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth/**
+            
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+            allowedMethods: 
+              - "GET"
+              - "POST"
+              - "PUT"
+              - "DELETE"
+            allowedHeaders: 
+              - "Content-Type"
+              - "Authorization"
+            allow-credentials: true
+
+  main:
+    web-application-type: reactive
+
 eureka:
   instance:
     prefer-ip-address: true

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.springframework.cloud.gateway.support.ServiceUnavailableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -94,5 +95,20 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST.value(),
                 "please enter the request body.");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+    
+    
+    /**
+     * Handles ServiceUnavailableException by returning a response with a "Service Unavailable"
+     * status.
+     * @param exception The ServiceUnavailableException to handle.
+     * @return A ResponseEntity with a "Service Unavailable" status and an error message.
+     */
+    @ExceptionHandler(ServiceUnavailableException.class)
+    public final ResponseEntity<ErrorResponse> handleServiceUnavailableException(
+            final ServiceUnavailableException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.SERVICE_UNAVAILABLE.value(), "Service Unavailable");
+        return new ResponseEntity<>(errorResponse, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

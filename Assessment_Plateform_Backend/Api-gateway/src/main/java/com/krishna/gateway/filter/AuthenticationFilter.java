@@ -5,10 +5,12 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
-
 import com.krishna.gateway.exception.ResourceNotFoundException;
 import com.krishna.gateway.exception.UnauthorizedAccessException;
 import com.krishna.gateway.util.JwtUtil;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
@@ -27,6 +29,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 	public GatewayFilter apply(Config config) {
 		return ((exchange, chain) -> {
 			if (validator.isSecured.test(exchange.getRequest())) {
+				
+				 
 				if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
 					throw new ResourceNotFoundException("Access denied: Missing authorization header");
 				}
@@ -39,8 +43,12 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 				try {
 					jwtUtil.validateToken(authHeader);
 
-				} catch (Exception e) {
-					throw new ResourceNotFoundException("Access denied: Invalid or expired token");
+				} catch (ExpiredJwtException e) {
+					throw new UnauthorizedAccessException("Access denied: expired token");
+	            } catch (MalformedJwtException e) {
+	            	throw new UnauthorizedAccessException("Some changed has done in token !! Invalid Token");
+	            }catch (Exception e) {
+					throw new UnauthorizedAccessException("Access denied: Invalid token");
 				}
 
 				String userRole = jwtUtil.extractUserRole(authHeader);
